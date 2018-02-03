@@ -1,5 +1,12 @@
-<p id="notice"><%= notice %></p>
-
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-6">
+    <h1>Advertisement</h1>
+  </div>
+  <div class="col-md-6 col-sm-6 col-6 text-right">
+      <a class="btn btn-outline-primary" href="<%= edit_advertisement_path(@advertisement) %>">Edit</a>
+  </div>
+</div>
+<hr>
 <p>
   <strong>Title:</strong>
   <%= @advertisement.title %>
