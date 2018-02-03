@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">Companion</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">New</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Search</a>
+          </li>
+      </ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="nav-link"><%= current_user.full_name %></a>
+</li>
+<li class="nav-item">
+  <a data-method="DELETE" class="btn-outline-danger btn" href="<%= destroy_user_session_path %>">Log out</a>
+</li>
+</ul>
+<% else %>
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="#">New</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Search</a>
+    </li>
+  </ul>
+<ul class="navbar-nav ml-auto">
+  <li class="mr-2">
+    <a class="btn-outline-success btn" href="<%= new_user_registration_path %>">Sign up</a>
+  </li>
+  <li>
+    <a class="btn-outline-primary btn" href="<%= new_user_session_path %>">Log in</a>
+  </li>
+</ul>
+<% end %>
+</div>
+</div>
+</nav>

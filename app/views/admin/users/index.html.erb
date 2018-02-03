@@ -1,0 +1,54 @@
+<% content_for :breadcrumb do %>
+<ul class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item"><a href="<%= admin_users_path %>">Users</a></li>
+  <li class="breadcrumb-item active">Index</li>
+</ul>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h1>User</h1>
+  </div>
+  <div class="col-md-6 text-right">
+    <a class="btn btn-outline-primary" href="<%= new_admin_user_path %>">New User</a>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Email</th>
+      <th>Permission</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.full_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td>
+        <a href="<%= edit_admin_user_path(user) %>" class="btn btn-outline-info">
+          Edit
+        </a>
+        <a href="<%= admin_user_path(user) %>" data-method="DELETE" class="btn btn-outline-danger"
+           data-confirm="Are you sure?">
+          Delete
+        </a>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= page_entries_info @users %>
+  </div>
+  <div class="col-sm-6">
+    <%= paginate @users %>
+  </div>
+</div>

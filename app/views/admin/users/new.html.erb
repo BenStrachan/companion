@@ -1,0 +1,15 @@
+<% content_for :breadcrumb do %>
+<ul class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item"><a href="<%= admin_users_path %>">Users</a></li>
+  <li class="breadcrumb-item active">New</li>
+</ul>
+<% end %>
+
+<h1>New user</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= render 'form' %>
+  </div>
+</div>
