@@ -1,0 +1,15 @@
+<div class="col-md-6">
+  <%= simple_form_for(@advertisement) do |f| %>
+
+    <div class="form-inputs">
+      <%= f.input :title %>
+      <%= f.input :description, as: :text, input_html: { rows: 5 } %>
+      <%= f.input :city %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn btn-primary"  %>
+    </div>
+    <br>
+  <% end %>
+</div>
