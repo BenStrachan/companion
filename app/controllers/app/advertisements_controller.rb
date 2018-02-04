@@ -73,7 +73,7 @@ class App::AdvertisementsController < App::BaseController
   def comment
     @advertisement.comments.create(
       content: params[:content],
-      is_private: params[:is_private],
+      is_private: params[:is_private].present?,
       user_id: current_user.id
     )
 
