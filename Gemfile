@@ -23,6 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'font-awesome-sass', '~> 4.7.0'
 
 gem "paperclip", "~> 5.2.1"
 gem 'aws-sdk', '~> 2.3'

@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :onlines
 
-  resources :advertisements
   root to: 'visitors#index'
 
   devise_for :users, controllers: {
@@ -17,6 +16,13 @@ Rails.application.routes.draw do
 
   namespace :app do
     resources :users
+    resources :advertisements do
+      member do
+        post :interest
+        post :comment
+        post :set_private_chat
+      end
+    end
   end
 
   namespace :admin do

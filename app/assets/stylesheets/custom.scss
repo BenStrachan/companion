@@ -1,3 +1,7 @@
+body {
+  font-family: Roboto;
+  font-size: 14px;
+}
 .navbar {
   box-shadow: 0px 1px #BEBEBE;
 }
@@ -64,5 +68,85 @@ section {
 .form-group.file {
   .control-label {
     display: block;
+  }
+}
+
+.conversation-container {
+  width: 100%;
+  background: #f2f3f6;
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px #ccc;
+  border: 1px solid #dddfe2;
+  .new-message {
+    display: flex;
+    .input {
+      flex: 1 1 auto;
+      .form-control {
+        resize: vertical;
+        border-radius: 3px 0px 0px 3px;
+        outline: none;
+      }
+    }
+    .submit {
+      display: flex;
+      width: 60px;
+      background: #44b653;
+      color: #FFF;
+      border-radius: 0px 3px 3px 0px;
+      font-size: 24px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .message {
+    display: flex;
+    margin-bottom: 15px;
+    .user {
+      width: 36px;
+      vertical-align: top;
+      img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+    }
+    .msg-detail {
+      flex: 0 1 auto;
+      margin-left: 10px;
+      .msg-content {
+        background: #FFF;
+        padding: 5px 10px;
+        border-radius: 3px;
+        a {
+          font-weight: 500;
+        }
+      }
+      .time {
+        font-weight: 500;
+        margin-top: 4px;
+        display: block;
+        color: #888;
+        font-size: 12px;
+      }
+    } 
+  }
+  .list-messages {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dddfe2;
+    .box-reply {
+      margin-left: 50px;
+    }
+    .box-message + .box-message {
+      margin-top: 15px;
+    }
+    .empty {
+      padding-bottom: 10px;
+      color: #888;
+      font-weight: 500;
+      font-size: 13px;
+    }
   }
 }

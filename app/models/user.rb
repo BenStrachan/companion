@@ -50,7 +50,12 @@ class User < ApplicationRecord
 devise :invitable, :database_authenticatable, :registerable,
        :recoverable, :rememberable, :trackable, :validatable
 
-has_attached_file :avatar, styles: { medium: "450x450>" }
+has_attached_file :avatar, styles: { medium: "450x450>" },
+                          default_url: -> (attachment) {
+                            ActionController::Base.helpers.asset_path(
+                              'default-avatar.png'
+                            )
+                          }
 validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
 validates :first_name, presence: true, length: { maximum: 50 }

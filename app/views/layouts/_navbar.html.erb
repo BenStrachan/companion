@@ -13,10 +13,10 @@
       <% if user_signed_in? %>
       <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<%= new_advertisement_path %>">New</a>
+            <a class="nav-link" href="<%= new_app_advertisement_path %>">New</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%= advertisements_path %>">Search</a>
+            <a class="nav-link" href="<%= app_advertisements_path %>">Search</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= onlines_path %>">Online</a>
@@ -41,10 +41,10 @@
 <% else %>
 <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" href="<%= new_advertisement_path %>">New</a>
+      <a class="nav-link" href="<%= new_app_advertisement_path %>">New</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<%= advertisements_path %>">Search</a>
+      <a class="nav-link" href="<%= app_advertisements_path %>">Search</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<%= onlines_path %>">Online</a>

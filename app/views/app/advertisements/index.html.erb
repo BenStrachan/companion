@@ -3,7 +3,7 @@
     <h1>Advertisements</h1>
   </div>
   <div class="col-md-6 col-sm-6 col-6 text-right">
-    <a class="btn btn-outline-primary" href="<%= new_advertisement_path %>">New</a>
+    <a class="btn btn-outline-primary" href="<%= new_app_advertisement_path %>">New</a>
   </div>
 </div>
 
@@ -23,7 +23,12 @@
         <td><%= advertisement.title %></td>
         <td><%= advertisement.description %></td>
         <td><%= advertisement.city %></td>
-        <td><%= link_to 'Show', advertisement %> | <%= link_to 'Edit', edit_advertisement_path(advertisement) %> | <%= link_to 'Destroy', advertisement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', app_advertisement_path(advertisement) %>
+          <% if current_user.id == advertisement.user_id %>
+            | <%= link_to 'Edit', edit_app_advertisement_path(advertisement) %> | 
+            <%= link_to 'Destroy', app_advertisement_path(advertisement), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
       </tr>
     <% end %>
   </tbody>
