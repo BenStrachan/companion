@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'onlines/index'
+
   resources :advertisements
   root to: 'visitors#index'
 
