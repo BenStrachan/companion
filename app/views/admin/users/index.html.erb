@@ -18,6 +18,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Avatar</th>
       <th>Full name</th>
       <th>Email</th>
       <th>Permission</th>
@@ -27,6 +28,11 @@
   <tbody>
     <% @users.each do |user| %>
     <tr>
+      <td>
+        <% if user.avatar.exists? %>
+          <img src="<%= user.avatar.url %>" alt="" class="avatar-small">
+        <% end %>
+      </td>
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
       <td><%= user.role %></td>

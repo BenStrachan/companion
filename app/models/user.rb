@@ -59,6 +59,8 @@ validates :role, inclusion: ROLES, presence: true
 
 before_validation :set_role
 
+has_many :ads, class_name: Advertisement::name
+
 def full_name
   [first_name, last_name].join(" ")
 end

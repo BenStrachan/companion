@@ -21,6 +21,14 @@
           <li class="nav-item">
             <a class="nav-link" href="<%= onlines_path %>">Online</a>
           </li>
+          <% if current_user.admin? %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= admin_users_path %>">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= admin_advertisements_path %>">Advertisements</a>
+            </li>
+          <% end %>
       </ul>
       <ul class="navbar-nav">
 <li class="nav-item">

@@ -5,7 +5,7 @@ class AdvertisementsController < ApplicationController
   # GET /advertisements
   # GET /advertisements.json
   def index
-    @advertisements = Advertisement.all
+    @advertisements = current_user.ads.all
   end
 
   # GET /advertisements/1
@@ -25,7 +25,7 @@ class AdvertisementsController < ApplicationController
   # POST /advertisements
   # POST /advertisements.json
   def create
-    @advertisement = Advertisement.new(advertisement_params)
+    @advertisement = current_user.ads.new(advertisement_params)
 
     respond_to do |format|
       if @advertisement.save
@@ -65,7 +65,7 @@ class AdvertisementsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_advertisement
-      @advertisement = Advertisement.find(params[:id])
+      @advertisement = current_user.ads.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
