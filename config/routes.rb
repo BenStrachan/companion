@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get 'dashboards/setting'
 
+  resources :onlines
+
   resources :advertisements
   root to: 'visitors#index'
 
@@ -15,7 +17,6 @@ Rails.application.routes.draw do
 
   namespace :app do
     resources :users
-    resources :onlines
   end
 
   namespace :admin do
