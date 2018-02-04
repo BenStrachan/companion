@@ -1,0 +1,8 @@
+<%= simple_form_for [:app, @user] do |f| %>
+  <%= f.input :first_name, required: true %>
+  <%= f.input :last_name, required: true %>
+  <%= f.input :email, required: true, autofocus: true %>
+  <%= f.input :status, collection: User::STATUS %>
+  <%= f.input :avatar %>
+  <%= f.button :submit, class: "btn btn btn-success" %>
+<% end %>

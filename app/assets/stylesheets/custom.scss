@@ -47,3 +47,22 @@ section {
 .section-100 {
   padding: 100px;
 }
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.avatar-med {
+  width: 42px;
+  height: 42px;
+  display: inline-block;
+  border-radius: 5px;
+}
+.form-group.file {
+  .control-label {
+    display: block;
+  }
+}

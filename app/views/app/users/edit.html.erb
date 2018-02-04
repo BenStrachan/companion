@@ -1,0 +1,22 @@
+<% content_for :breadcrumb do %>
+<ul class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item"><a href="<%= admin_users_path %>">Users</a></li>
+  <li class="breadcrumb-item active">Edit</li>
+</ul>
+<% end %>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>User information</h4>
+    <%= render 'form' %>
+  </div>
+  <div class="col-sm-6">
+    <h4>Change password</h4>
+    <%= simple_form_for [:admin, @user] do |f| %>
+      <%= f.input :password, required: true %>
+      <%= f.input :password_confirmation, required: true %>
+      <%= f.button :submit, class: "btn btn btn-success", value: "Change password" %>
+    <% end %>
+</div>
