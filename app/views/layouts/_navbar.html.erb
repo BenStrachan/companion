@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container">
+    <% if user_signed_in? %>
+    <a class="navbar-brand" href="<%= dashboards_index_path %>">Companion App</a>
+    <% else %>
     <a class="navbar-brand" href="/">Companion App</a>
+    <% end %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,7 +24,7 @@
       </ul>
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="nav-link"><%= current_user.full_name %></a>
+  <a class="nav-link" href="<%= dashboards_setting_path %>"><%= current_user.full_name %></a>
 </li>
 <li class="nav-item">
   <a data-method="DELETE" class="btn-outline-danger btn" href="<%= destroy_user_session_path %>">Log out</a>

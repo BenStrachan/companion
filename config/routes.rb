@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'dashboards/index'
+
+  get 'dashboards/setting'
+
   get 'onlines/index'
 
   resources :advertisements
