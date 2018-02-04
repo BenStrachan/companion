@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-6">
+    <h1>Advertisement</h1>
+  </div>
+  <div class="col-md-6 col-sm-6 col-6 text-right">
+      <a class="btn btn-outline-primary" href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
+  </div>
+</div>
+<hr>
+<p>
+  <strong>Title:</strong>
+  <%= @advertisement.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @advertisement.description %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @advertisement.city %>
+</p>
+<% if current_user.id != @advertisement.user_id && !@advertisement.interested?(current_user) %>
+<a href="<%= interest_app_advertisement_path(@advertisement) %>" data-method="POST">
+  Register interest
+</a>
+<% end %>
+
+<% if @advertisement.interesters.present? %>
+<hr>
+<h4>Users interested:</h4>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <% if current_user.id == @advertisement.user_id %>
+          <th>Action</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="table-striped">
+      <% @advertisement.interesters.each do |user| %>
+        <tr>
+          <td>
+            <img src="<%= user.avatar.url %>" alt="" class="avatar-small">
+          </td>
+          <td><%= user.full_name %></td>
+          <% if current_user.id == @advertisement.user_id %>
+          <td>
+            <% if user.id != @advertisement.private_user_id %>
+            <a href="<%= set_private_chat_app_advertisement_path(@advertisement, user_id: user.id) %>" 
+              class="btn btn-outline-success btn-sm" data-method="POST"
+              data-confirm="Are you sure?">
+              Private Chat
+            </a>
+            <% else %>
+              <span class="badge badge-success">Actived</span>
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+<hr>
+<h4>Public Chatter:</h4>
+<div class="conversation-container">
+  <div class="list-messages">
+    <% @advertisement.comments.includes(:user).each do |message| %>
+    <div class="box-message">
+      <div class="message">
+        <div class="user">
+          <% if message.user %>
+            <img src="<%= message.user.avatar %>">
+          <% end %>
+        </div>
+        <div class="msg-detail">
+          <div class="msg-content">
+            <a href=""><%= message.user&.full_name %></a>
+            <%= message.content %>
+          </div>
+          <span class="time"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% if @advertisement.comments.blank? %>
+    <div class="empty">
+      Not found any comments
+    </div>
+    <% end %>
+  </div>
+  <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
+    <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
+      <div class="new-message">
+        <div class="input">
+          <textarea name="content" rows="2" class="form-control" placeholder="Message..."></textarea>
+        </div>
+        <button class="btn submit" disabled="true">
+          <i class="fa fa-send"></i>
+        </button>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% if @advertisement.private_user_id && (@advertisement.user_id == current_user.id || @advertisement.private_user_id == current_user.id) %>
+<hr>
+<h4>Private Chatter:</h4>
+<div class="conversation-container">
+  <div class="list-messages">
+    <% @advertisement.private_comments.includes(:user).each do |message| %>
+    <div class="box-message">
+      <div class="message">
+        <div class="user">
+          <% if message.user %>
+            <img src="<%= message.user.avatar %>">
+          <% end %>
+        </div>
+        <div class="msg-detail">
+          <div class="msg-content">
+            <a href=""><%= message.user&.full_name %></a>
+            <%= message.content %>
+          </div>
+          <span class="time"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% if @advertisement.private_comments.blank? %>
+    <div class="empty">
+      Not found any comments
+    </div>
+    <% end %>
+  </div>
+  <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
+    <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
+      <input type="hidden" name="is_private" value="1">
+      <div class="new-message">
+        <div class="input">
+          <textarea name="content" rows="2" class="form-control" placeholder="Message..."></textarea>
+        </div>
+        <button class="btn submit" disabled="true">
+          <i class="fa fa-send"></i>
+        </button>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
+
+<% content_for :page_js do %>
+<script type="text/javascript">
+  (function() {
+    $('.conversation-container .new-message textarea').keyup(function(event) {
+      $submitElement = $(this).parents('.new-message').find('.submit');
+      if($(this).val().trim() != "") {
+        $submitElement.prop('disabled', false);
+      }else {
+        $submitElement.prop('disabled', true);
+      }
+    });
+  })();
+</script>
+<% end %>

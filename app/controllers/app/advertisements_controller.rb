@@ -1,11 +1,13 @@
-class AdvertisementsController < ApplicationController
+class App::AdvertisementsController < App::BaseController
   before_action :authenticate_user!, :except => [:index]
-  before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
+  before_action :set_advertisement, only: [
+                        :show, :edit, :update, :destroy, :interest,
+                        :comment, :set_private_chat]
 
   # GET /advertisements
   # GET /advertisements.json
   def index
-    @advertisements = current_user.ads.all
+    @advertisements = Advertisement.all
   end
 
   # GET /advertisements/1
@@ -29,7 +31,7 @@ class AdvertisementsController < ApplicationController
 
     respond_to do |format|
       if @advertisement.save
-        format.html { redirect_to @advertisement, notice: 'Advertisement was successfully created.' }
+        format.html { redirect_to app_advertisements_url, notice: 'Advertisement was successfully created.' }
         format.json { render :show, status: :created, location: @advertisement }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class AdvertisementsController < ApplicationController
   def update
     respond_to do |format|
       if @advertisement.update(advertisement_params)
-        format.html { redirect_to @advertisement, notice: 'Advertisement was successfully updated.' }
+        format.html { redirect_to app_advertisements_url, notice: 'Advertisement was successfully updated.' }
         format.json { render :show, status: :ok, location: @advertisement }
       else
         format.html { render :edit }
@@ -57,15 +59,45 @@ class AdvertisementsController < ApplicationController
   def destroy
     @advertisement.destroy
     respond_to do |format|
-      format.html { redirect_to advertisements_url, notice: 'Advertisement was successfully destroyed.' }
+      format.html { redirect_to app_advertisements_url, notice: 'Advertisement was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def interest
+    @advertisement.interesters.push(current_user)
+    redirect_to app_advertisement_path(@advertisement),
+                notice: 'You has been interested advertisement successfully'
+  end
+
+  def comment
+    @advertisement.comments.create(
+      content: params[:content],
+      is_private: params[:is_private],
+      user_id: current_user.id
+    )
+
+    redirect_to app_advertisement_path(@advertisement),
+                notice: 'Comment has been posted successfully'
+  end
+
+  def set_private_chat
+    if @advertisement.user_id == current_user.id
+      @advertisement.private_comments.delete_all
+      @advertisement.update private_user_id: params[:user_id]
+
+      redirect_to app_advertisement_path(@advertisement),
+                  notice: 'Private chat has been seted successfully'
+    else
+      redirect_to app_advertisement_path(@advertisement),
+                  alert: 'You don\'t have permission'
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_advertisement
-      @advertisement = current_user.ads.find(params[:id])
+      @advertisement = Advertisement.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

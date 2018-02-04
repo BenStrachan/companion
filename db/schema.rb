@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204082335) do
+ActiveRecord::Schema.define(version: 20180204111526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,25 @@ ActiveRecord::Schema.define(version: 20180204082335) do
     t.datetime "updated_at", null: false
     t.string "status"
     t.integer "user_id"
+    t.integer "private_user_id"
+  end
+
+  create_table "advertisements_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "advertisement_id"
+    t.index ["advertisement_id"], name: "index_advertisements_users_on_advertisement_id"
+    t.index ["user_id"], name: "index_advertisements_users_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "advertisement_id"
+    t.boolean "is_private", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advertisement_id"], name: "index_comments_on_advertisement_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
