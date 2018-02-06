@@ -12,21 +12,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <% if user_signed_in? %>
       <ul class="navbar-nav mr-auto">
+          <% if current_user.regular? %>
           <li class="nav-item">
             <a class="nav-link" href="<%= new_app_advertisement_path %>">New</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%= app_advertisements_path %>">Search</a>
+            <a class="nav-link" href="<%= app_advertisements_path %>">Requests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= onlines_path %>">Online</a>
           </li>
+          <% end %>
           <% if current_user.admin? %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= admin_users_path %>">Users</a>
+              <a class="nav-link" href="<%= new_admin_advertisement_path %>">New</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= admin_advertisements_path %>">Ads</a>
+              <a class="nav-link" href="<%= admin_advertisements_path %>">Requests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= onlines_path %>">Online</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= admin_users_path %>">Users</a>
             </li>
           <% end %>
       </ul>

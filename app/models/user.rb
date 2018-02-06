@@ -74,6 +74,10 @@ def admin?
   self.role == ROLE_ADMIN
 end
 
+def regular?
+  self.role == ROLE_REGULAR
+end
+
 private
 def set_role
   self.role = ROLE_REGULAR if self.role.blank?

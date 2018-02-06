@@ -1,12 +1,5 @@
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-6">
-    <h1>Advertisement</h1>
-  </div>
-  <div class="col-md-6 col-sm-6 col-6 text-right">
-      <a class="btn btn-outline-primary" href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
-  </div>
-</div>
-<hr>
+<h3>Companion Request:</h3>
+<br>
 <p>
   <strong>Title:</strong>
   <%= @advertisement.title %>
@@ -21,6 +14,8 @@
   <strong>City:</strong>
   <%= @advertisement.city %>
 </p>
+<a href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
+
 <% if current_user.id != @advertisement.user_id && !@advertisement.interested?(current_user) %>
 <a href="<%= interest_app_advertisement_path(@advertisement) %>" data-method="POST">
   Register interest
@@ -32,15 +27,6 @@
 <h4>Users interested:</h4>
 <div class="table-responsive">
   <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>Avatar</th>
-        <th>Name</th>
-        <% if current_user.id == @advertisement.user_id %>
-          <th>Action</th>
-        <% end %>
-      </tr>
-    </thead>
     <tbody class="table-striped">
       <% @advertisement.interesters.each do |user| %>
         <tr>
@@ -51,7 +37,7 @@
           <% if current_user.id == @advertisement.user_id %>
           <td>
             <% if user.id != @advertisement.private_user_id %>
-            <a href="<%= set_private_chat_app_advertisement_path(@advertisement, user_id: user.id) %>" 
+            <a href="<%= set_private_chat_app_advertisement_path(@advertisement, user_id: user.id) %>"
               class="btn btn-outline-success btn-sm" data-method="POST"
               data-confirm="Are you sure?">
               Private Chat
