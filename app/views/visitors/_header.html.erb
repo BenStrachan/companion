@@ -1,0 +1,70 @@
+<!-- Header Section Start -->
+<header id="hero-area" data-stellar-background-ratio="0.5">
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar indigo">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="<%= root_path %>" class="navbar-brand">
+          <img class="img-fulid logo-brand" src="<%= asset_path('logo.png') %>" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="lnr lnr-menu"></i>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#">New Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="https://owner.health/bookings">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="https://owner.health/app/dashboard">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="https://owner.health/app/dashboard">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Start -->
+    <ul class="mobile-menu">
+        <li class="nav-item">
+          <a class="nav-link page-scroll" href="#hero-area">#</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link page-scroll" href="https://owner.health/bookings">Book Online</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link page-scroll" href="https://owner.health/app/dashboard">Practitioner Login</a>
+        </li>
+    </ul>
+    <!-- Mobile Menu End -->
+
+  </nav>
+  <!-- Navbar End -->
+
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="contents text-center">
+          <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">Find a companion!</h1>
+          <p class="lead larger-size  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">An application to meet new friends.</p>
+          <form action="#">
+            <div class="form-group">
+              <input type="text" class="form-control text-center" id="booking-address" name="location" placeholder="Enter your address" required>
+              <div class="help-block with-errors"></div>
+            </div>
+            <button class="btn btn-common wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Header Section End -->

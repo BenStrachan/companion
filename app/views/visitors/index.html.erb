@@ -1,8 +1,18 @@
-<div class="jumbotron hero-background">
-  <div class="col-lg-6 col-md-12 col-12">
-    <h1 class="display-2 hero-heading">Companion App</h1>
-    <p class="lead hero-subheading">
-      A great place to meet friends online.
-    </p>
-  </div>
-</div>
+<% content_for :seo_tags do %>
+  <title>Name</title>
+  <meta name="description" content="An uber style home physiotherapy service in the Greater London Area.">
+<% end %>
+
+<%= render 'visitors/header' %>
+
+<%= render 'visitors/introduction' %>
+
+<%= render 'visitors/how_does_it_work' %>
+
+<%= render 'visitors/search_local' %>
+
+<%= render 'visitors/careers' %>
+
+<%= render 'visitors/pricing' %>
+
+<%= render 'visitors/footer' %>
