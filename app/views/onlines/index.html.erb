@@ -1,6 +1,9 @@
 <div class="row">
-  <div class="col-md-6">
-    <h1>Online now</h1>
+  <div class="col-md-6 col-sm-6 col-6">
+    <h1>Online Now</h1>
+  </div>
+  <div class="col-md-6 col-sm-6 col-6 text-right">
+    <a class="btn btn-outline-primary" href="<%= edit_app_user_path(current_user) %>">Change Status</a>
   </div>
 </div>
 
@@ -9,6 +12,7 @@
     <tr>
       <th>Photo</th>
       <th>Full name</th>
+      <th>Location</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +24,7 @@
         <% end %>
       </td>
       <td><%= user.full_name %></td>
+      <td></td>
     </tr>
     <% end %>
   </tbody>
