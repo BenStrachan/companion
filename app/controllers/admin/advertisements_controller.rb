@@ -5,20 +5,20 @@ module Admin
     def index
       @advertisements = Advertisement.all
     end
-  
+
     def show
     end
-  
+
     def new
       @advertisement = Advertisement.new
     end
-  
+
     def edit
     end
-  
+
     def create
       @advertisement = Advertisement.new(advertisement_params)
-  
+
       respond_to do |format|
         if @advertisement.save
           format.html { redirect_to admin_advertisements_url, notice: 'Advertisement was successfully created.' }
@@ -29,7 +29,7 @@ module Admin
         end
       end
     end
-  
+
     def update
       respond_to do |format|
         if @advertisement.update(advertisement_params)
@@ -41,7 +41,7 @@ module Admin
         end
       end
     end
-  
+
     def destroy
       @advertisement.destroy
       respond_to do |format|
@@ -49,7 +49,7 @@ module Admin
         format.json { head :no_content }
       end
     end
-  
+
     private
     def set_advertisement
       @advertisement = Advertisement.find(params[:id])
