@@ -32,13 +32,16 @@
     <!-- Mobile Menu Start -->
     <ul class="mobile-menu">
         <li class="nav-item">
-          <a class="nav-link page-scroll" href="#hero-area">#</a>
+          <a class="nav-link page-scroll" href="<%= new_app_advertisement_path %>">New Request</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link page-scroll" href="https://owner.health/bookings">Book Online</a>
+          <a class="nav-link page-scroll" href="<%= app_advertisements_path %>">Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link page-scroll" href="https://owner.health/app/dashboard">Practitioner Login</a>
+          <a class="nav-link page-scroll" href="<%= new_user_session_path %>">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link page-scroll" href="<%= new_user_registration_path %>">Sign Up</a>
         </li>
     </ul>
     <!-- Mobile Menu End -->
