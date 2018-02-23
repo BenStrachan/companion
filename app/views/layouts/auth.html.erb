@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Companion" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Template" %>">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <%= stylesheet_link_tag 'admin', media: 'all'%>
+    <%= javascript_include_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="login-page">
+    <%= yield %>
+  </body>
+</html>
