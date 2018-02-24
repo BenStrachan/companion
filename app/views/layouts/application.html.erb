@@ -4,19 +4,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Companion" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Template" %>">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-    <%= stylesheet_link_tag 'guest', media: 'all'%>
-    <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <%= stylesheet_link_tag 'admin', media: 'all'%>
+    <%= javascript_include_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <header>
-      <%= render 'layouts/navbar' %>
-    </header>
-    <main role="main">
-      <div class="container main">
-        <%= yield %>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+      <%= render 'layouts/admin/header' %>
+      <%= render 'layouts/admin/sidebar' %>
+      <div class="content-wrapper">
+        <section class="content">
+          <%= yield %>
+        </section>
       </div>
-    </main>
+    </div>
   </body>
 </html>
