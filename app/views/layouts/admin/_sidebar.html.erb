@@ -1,42 +1,89 @@
 <aside class="main-sidebar">
+    <section class="user-panel">
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img class="img-circle" src="<%= current_user.avatar %>"  alt="profile">
+        </div>
+        <div class="pull-left info">
+          <p><%= current_user.first_name %> <%= current_user.last_name %></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <form class="sidebar-form" action="#" method="get">
+        <div class="input-group">
+          <input class="form-control" type="text" name="" value="" placeholder="Search ..">
+        </div>
+      </form>
+    </section>
+    <hr>
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <% if current_user.regular? %>
           <li class="nav-item">
             <a class="nav-link" href="<%= new_app_advertisement_path %>">
-              <i class="fa fa-table"></i> New
+              <i class="fa fa-calendar"></i> New
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= app_advertisements_path %>">
-              <i class="fa fa-envelope"></i> Requests
+              <i class="fa fa-search"></i> Requests
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= onlines_path %>">
-              <i class="fa fa-pie-chart"></i> Online
+              <i class="fa fa-comments"></i> Online
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-check-circle"></i> Notifications
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-credit-card"></i> Subscription
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-cog"></i> Settings
             </a>
           </li>
         <% end %>
         <% if current_user.admin? %>
           <li class="nav-item">
             <a class="nav-link" href="<%= new_admin_advertisement_path %>">
-              <i class="fa fa-table"></i> New
+              <i class="fa fa-calendar"></i> New
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= admin_advertisements_path %>">
-              <i class="fa fa-envelope"></i> Requests
+              <i class="fa fa-search"></i> Requests
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= onlines_path %>">
-              <i class="fa fa-pie-chart"></i> Online
+              <i class="fa fa-check-circle"></i> Online
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= admin_users_path %>">
               <i class="fa fa-user"></i> Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-comments"></i> Notifications
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-credit-card"></i> Subscription
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-cog"></i> Settings
             </a>
           </li>
         <% end %>
