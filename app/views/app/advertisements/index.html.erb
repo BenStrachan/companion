@@ -1,35 +1,37 @@
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-6">
-    <h1>Companion Request</h1>
+<div class="box">
+  <div class="row box-header">
+    <div class="col-md-6 col-sm-6 col-6">
+      <h1>Companion Request</h1>
+    </div>
+    <div class="col-md-6 col-sm-6 col-6 text-right">
+      <a class="btn btn-outline-primary" href="<%= new_app_advertisement_path %>">New</a>
+    </div>
   </div>
-  <div class="col-md-6 col-sm-6 col-6 text-right">
-    <a class="btn btn-outline-primary" href="<%= new_app_advertisement_path %>">New</a>
-  </div>
-</div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>City</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @advertisements.each do |advertisement| %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= advertisement.title %></td>
-        <td><%= advertisement.description %></td>
-        <td><%= advertisement.city %></td>
-        <td>
-          <%= link_to 'Show', app_advertisement_path(advertisement) %>
-          <% if current_user.id == advertisement.user_id %>
-            | <%= link_to 'Edit', edit_app_advertisement_path(advertisement) %> |
-            <%= link_to 'Destroy', app_advertisement_path(advertisement), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
+        <th>Title</th>
+        <th>Description</th>
+        <th>City</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @advertisements.each do |advertisement| %>
+        <tr>
+          <td><%= advertisement.title %></td>
+          <td><%= advertisement.description %></td>
+          <td><%= advertisement.city %></td>
+          <td>
+            <%= link_to 'Show', app_advertisement_path(advertisement) %>
+            <% if current_user.id == advertisement.user_id %>
+              | <%= link_to 'Edit', edit_app_advertisement_path(advertisement) %> |
+              <%= link_to 'Destroy', app_advertisement_path(advertisement), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
