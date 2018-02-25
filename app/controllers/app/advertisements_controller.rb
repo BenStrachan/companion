@@ -7,7 +7,7 @@ class App::AdvertisementsController < App::BaseController
   # GET /advertisements
   # GET /advertisements.json
   def index
-    @advertisements = Advertisement.all
+    @advertisements = Advertisement.page(params[:page])
   end
 
   # GET /advertisements/1

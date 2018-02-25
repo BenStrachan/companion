@@ -1,40 +1,40 @@
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-6">
-    <h1>Online Now</h1>
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Online Now</h3>
   </div>
-  <div class="col-md-6 col-sm-6 col-6 text-right">
-    <a class="btn btn-outline-primary" href="<%= edit_app_user_path(current_user) %>">Change Status</a>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Full name</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td>
+          <% if user.avatar.exists? %>
+          <img src="<%= user.avatar.url %>" class="avatar-small">
+          <% end %>
+        </td>
+        <td><%= user.full_name %></td>
+        <td></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<div class="box-footer">
+  <div class="row">
+    <div class="col-sm-6">
+      <%= page_entries_info @users %>
+    </div>
+    <div class="col-sm-6">
+      <%= paginate @users %>
+    </div>
   </div>
 </div>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Photo</th>
-      <th>Full name</th>
-      <th>Location</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-    <tr>
-      <td>
-        <% if user.avatar.exists? %>
-        <img src="<%= user.avatar.url %>" class="avatar-small">
-        <% end %>
-      </td>
-      <td><%= user.full_name %></td>
-      <td></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<div class="row">
-  <div class="col-sm-6">
-    <%= page_entries_info @users %>
-  </div>
-  <div class="col-sm-6">
-    <%= paginate @users %>
-  </div>
 </div>
