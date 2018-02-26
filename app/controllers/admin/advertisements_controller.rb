@@ -3,7 +3,7 @@ module Admin
     before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
 
     def index
-      @advertisements = Advertisement.all
+      @advertisements = Advertisement.page(params[:page])
     end
 
     def show
