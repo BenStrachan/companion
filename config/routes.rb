@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :app do
     resources :users
+    resources :notifications
     resources :advertisements do
       member do
         post :interest

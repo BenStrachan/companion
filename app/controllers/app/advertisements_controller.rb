@@ -66,6 +66,14 @@ class App::AdvertisementsController < App::BaseController
 
   def interest
     @advertisement.interesters.push(current_user)
+
+    Notification.create(
+      user_id: current_user.id,
+      content: "interested on",
+      link: app_advertisement_path(@advertisement)
+    )
+
+
     redirect_to app_advertisement_path(@advertisement),
                 notice: 'You has been interested advertisement successfully'
   end
@@ -75,6 +83,12 @@ class App::AdvertisementsController < App::BaseController
       content: params[:content],
       is_private: params[:is_private].present?,
       user_id: current_user.id
+    )
+
+    Notification.create(
+      user_id: current_user.id,
+      content: "commented on",
+      link: app_advertisement_path(@advertisement)
     )
 
     redirect_to app_advertisement_path(@advertisement),

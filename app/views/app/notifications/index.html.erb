@@ -1,0 +1,24 @@
+<% last_date = nil %>
+<ul class="timeline">
+  <% Notification.order(created_at: :desc).each do |noti| %>
+
+  <% if last_date != noti.created_at.strftime("%b %d, %Y")%>
+  <li class="time-label">
+    <span class="bg-green">
+      <%= noti.created_at.strftime("%b %d, %Y") %>
+    </span>
+  </li>
+  <% end %>
+  <% last_date = noti.created_at.strftime("%b %d, %Y") %>
+
+  <li>
+    <div class="timeline-item">
+      <span class="time"><i class="fa fa-clock-o"></i> <%= noti.created_at.strftime("%H:%M") %></span>
+      <h3 class="timeline-header">
+        <a href="#"><%= noti.user&.full_name %></a> <%= noti.content %>
+        <a href="<%= noti.link %>"> request</a>
+      </h3>
+    </div>
+  </li>
+  <% end %>
+</ul>
