@@ -1,5 +1,5 @@
 class App::UsersController < App::BaseController
-  def edit
+  def profile
     @user = current_user
   end
 
@@ -7,10 +7,10 @@ class App::UsersController < App::BaseController
     @user = current_user
 
     if @user.update user_params
-      redirect_to edit_app_user_path(@user),
+      redirect_to profile_app_users_path,
                   notice: "User has beed updated successfully"
     else
-      render :edit
+      render :profile
     end
   end
 

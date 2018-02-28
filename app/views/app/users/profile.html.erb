@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">User information</h3>
+      </div>
+      <div class="box-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Change password</h3>
+      </div>
+      <div class="box-body">
+        <%= simple_form_for [:app, @user] do |f| %>
+          <%= f.input :password, required: true %>
+          <%= f.input :password_confirmation, required: true %>
+          <%= f.button :submit, class: "btn btn btn-success", value: "Change password" %>
+        <% end %>
+      </div>
+    </div>
+</div>

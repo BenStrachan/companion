@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   }
 
   namespace :app do
-    resources :users
+    resources :users do
+      collection do
+        get :profile
+      end
+    end
     resources :notifications
     resources :advertisements do
       member do
