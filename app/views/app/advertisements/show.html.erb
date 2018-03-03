@@ -1,145 +1,157 @@
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">Companion request:</h3>
-  </div>
-  <div class="box-body">
-    <p>
-      <strong>Title:</strong>
-      <%= @advertisement.title %>
-    </p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Companion request:</h3>
+      </div>
+      <div class="box-body">
+        <p>
+          <strong>Title:</strong>
+          <%= @advertisement.title %>
+        </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @advertisement.description %>
-    </p>
+        <p>
+          <strong>Description:</strong>
+          <%= @advertisement.description %>
+        </p>
 
-    <p>
-      <strong>City:</strong>
-      <%= @advertisement.city %>
-    </p>
+        <p>
+          <strong>City:</strong>
+          <%= @advertisement.city %>
+        </p>
+      </div>
+      <div class="box-footer">
+        <a href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
+        <% if current_user.id != @advertisement.user_id && !@advertisement.interested?(current_user) %>
+        <a href="<%= interest_app_advertisement_path(@advertisement) %>" data-method="POST">
+          Register interest
+        </a>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="box-footer">
-    <a href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
-    <% if current_user.id != @advertisement.user_id && !@advertisement.interested?(current_user) %>
-    <a href="<%= interest_app_advertisement_path(@advertisement) %>" data-method="POST">
-      Register interest
-    </a>
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Users interested:</h3>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody class="table-striped">
+              <% @advertisement.interesters.each do |user| %>
+                <tr>
+                  <td>
+                    <img src="<%= user.avatar.url %>" alt="" class="avatar-small">
+                  </td>
+                  <td><%= user.full_name %></td>
+                  <% if current_user.id == @advertisement.user_id %>
+                  <td>
+                    <% if user.id != @advertisement.private_user_id %>
+                    <a href="<%= set_private_chat_app_advertisement_path(@advertisement, user_id: user.id) %>"
+                      class="btn btn-outline-success btn-sm" data-method="POST"
+                      data-confirm="Are you sure?">
+                      Private Chat
+                    </a>
+                    <% else %>
+                      <span class="badge badge-success">Actived</span>
+                    <% end %>
+                  </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box direct-chat direct-chat-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Public Chatter | </h3> (Visible to everyone)
+      </div>
+      <div class="box-body">
+        <div class="direct-chat-messages">
+          <% @advertisement.comments.includes(:user).each_with_index do |message, index| %>
+          <div class="direct-chat-msg <%= 'right' if index.odd?  %>">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-left"><%= message.user&.full_name %></span>
+              <span class="direct-chat-timestamp pull-right"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
+            </div>
+            <img class="direct-chat-img" src="<%= message.user.avatar %>">
+            <div class="direct-chat-text">
+              <%= message.content %>
+            </div>
+          </div>
+          <% end %>
+          <% if @advertisement.comments.blank? %>
+          <div class="empty">
+            Not found any comments
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
+        <div class="box-footer">
+          <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
+            <div class="input-group">
+              <input type="text" name="content" placeholder="Type Message ..." class="form-control">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success btn-flat">Send</button>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <% if @advertisement.private_user_id && (@advertisement.user_id == current_user.id || @advertisement.private_user_id == current_user.id) %>
+    <div class="box direct-chat direct-chat-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Private Chatter | </h3> (Visible to selected users only)
+      </div>
+      <div class="box-body">
+        <div class="direct-chat-messages">
+          <% @advertisement.private_comments.includes(:user).each_with_index do |message, index| %>
+          <div class="direct-chat-msg <%= 'right' if index.odd?  %>">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-left"><%= message.user&.full_name %></span>
+              <span class="direct-chat-timestamp pull-right"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
+            </div>
+            <img class="direct-chat-img" src="<%= message.user.avatar %>">
+            <div class="direct-chat-text">
+              <%= message.content %>
+            </div>
+          </div>
+          <% end %>
+          <% if @advertisement.private_comments.blank? %>
+          <div class="empty">
+            Not found any comments
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
+        <div class="box-footer">
+          <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
+            <input type="hidden" name="is_private" value="1">
+            <div class="input-group">
+              <input type="text" name="content" placeholder="Type Message ..." class="form-control">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success btn-flat">Send</button>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
     <% end %>
   </div>
 </div>
-
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">Users interested:</h3>
-  </div>
-  <div class="box-body">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <tbody class="table-striped">
-          <% @advertisement.interesters.each do |user| %>
-            <tr>
-              <td>
-                <img src="<%= user.avatar.url %>" alt="" class="avatar-small">
-              </td>
-              <td><%= user.full_name %></td>
-              <% if current_user.id == @advertisement.user_id %>
-              <td>
-                <% if user.id != @advertisement.private_user_id %>
-                <a href="<%= set_private_chat_app_advertisement_path(@advertisement, user_id: user.id) %>"
-                  class="btn btn-outline-success btn-sm" data-method="POST"
-                  data-confirm="Are you sure?">
-                  Private Chat
-                </a>
-                <% else %>
-                  <span class="badge badge-success">Actived</span>
-                <% end %>
-              </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="box direct-chat direct-chat-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Public Chatter</h3>
-  </div>
-  <div class="box-body">
-    <div class="direct-chat-messages">
-      <% @advertisement.comments.includes(:user).each_with_index do |message, index| %>
-      <div class="direct-chat-msg <%= 'right' if index.odd?  %>">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-left"><%= message.user&.full_name %></span>
-          <span class="direct-chat-timestamp pull-right"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
-        </div>
-        <img class="direct-chat-img" src="<%= message.user.avatar %>">
-        <div class="direct-chat-text">
-          <%= message.content %>
-        </div>
-      </div>
-      <% end %>
-      <% if @advertisement.comments.blank? %>
-      <div class="empty">
-        Not found any comments
-      </div>
-      <% end %>
-    </div>
-  </div>
-  <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
-    <div class="box-footer">
-      <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
-        <div class="input-group">
-          <input type="text" name="content" placeholder="Type Message ..." class="form-control">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success btn-flat">Send</button>
-          </span>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-
-<% if @advertisement.private_user_id && (@advertisement.user_id == current_user.id || @advertisement.private_user_id == current_user.id) %>
-<div class="box direct-chat direct-chat-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Private Chatter</h3>
-  </div>
-  <div class="box-body">
-    <div class="direct-chat-messages">
-      <% @advertisement.private_comments.includes(:user).each_with_index do |message, index| %>
-      <div class="direct-chat-msg <%= 'right' if index.odd?  %>">
-        <div class="direct-chat-info clearfix">
-          <span class="direct-chat-name pull-left"><%= message.user&.full_name %></span>
-          <span class="direct-chat-timestamp pull-right"><%= message.created_at.try(:strftime, "%d %b, %Y %l:%M%P") %></span>
-        </div>
-        <img class="direct-chat-img" src="<%= message.user.avatar %>">
-        <div class="direct-chat-text">
-          <%= message.content %>
-        </div>
-      </div>
-      <% end %>
-      <% if @advertisement.private_comments.blank? %>
-      <div class="empty">
-        Not found any comments
-      </div>
-      <% end %>
-    </div>
-  </div>
-  <% if @advertisement.interested?(current_user) || current_user.id == @advertisement.user_id %>
-    <div class="box-footer">
-      <%= simple_form_for :comment, url: comment_app_advertisement_path do |f| %>
-        <input type="hidden" name="is_private" value="1">
-        <div class="input-group">
-          <input type="text" name="content" placeholder="Type Message ..." class="form-control">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success btn-flat">Send</button>
-          </span>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-<% end %>
