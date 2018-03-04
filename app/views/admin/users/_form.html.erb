@@ -5,10 +5,29 @@
   <%= f.input :email, required: true, autofocus: true %>
   <%= f.input :role, required: true, collection: User::ROLES %>
   <%= f.input :avatar %>
+  <%= f.input :status, collection: User::STATUS %>
+  <%= f.input :address %>
   <% if @user.new_record? %>
   <%= f.input :password, required: true %>
   <%= f.input :password_confirmation, required: true %>
   <% end %>
   <%= f.button :submit, class: "btn btn btn-success" %>
 
+<% end %>
+
+<% content_for :page_js do %>
+<script>
+  (function() {
+    var autocomplete;
+
+    function locationSelected() {
+      var place = autocomplete.getPlace();
+    };
+    autocomplete = new google.maps.places.Autocomplete($('#user_address')[0], {
+      types: ['(cities)']
+    });
+
+    autocomplete.addListener('place_changed', locationSelected);
+  })();
+</script>
 <% end %>

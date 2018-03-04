@@ -22,6 +22,7 @@ class App::AdvertisementsController < App::BaseController
 
   # GET /advertisements/1/edit
   def edit
+    authorize! :edit, @advertisement
   end
 
   # POST /advertisements
@@ -43,6 +44,7 @@ class App::AdvertisementsController < App::BaseController
   # PATCH/PUT /advertisements/1
   # PATCH/PUT /advertisements/1.json
   def update
+    authorize! :update, @advertisement
     respond_to do |format|
       if @advertisement.update(advertisement_params)
         format.html { redirect_to app_advertisements_url, notice: 'Advertisement was successfully updated.' }
@@ -57,6 +59,7 @@ class App::AdvertisementsController < App::BaseController
   # DELETE /advertisements/1
   # DELETE /advertisements/1.json
   def destroy
+    authorize! :destroy, @advertisement
     @advertisement.destroy
     respond_to do |format|
       format.html { redirect_to app_advertisements_url, notice: 'Advertisement was successfully destroyed.' }

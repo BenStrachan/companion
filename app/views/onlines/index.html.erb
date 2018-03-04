@@ -10,6 +10,7 @@
         <th>Photo</th>
         <th>Full name</th>
         <th>Location</th>
+        <th>Advertisements</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,13 @@
         </td>
         <td><%= user.full_name %></td>
         <td></td>
+        <td>
+          <% user.ads.each do |ad| %>
+            <a href="<%= app_advertisement_path(ad) %>">
+              #<%= ad.id %>
+            </a>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

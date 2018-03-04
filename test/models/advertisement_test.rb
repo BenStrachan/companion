@@ -11,6 +11,8 @@
 #  status          :string
 #  user_id         :integer
 #  private_user_id :integer
+#  latitude        :float
+#  longitude       :float
 #
 
 require 'test_helper'

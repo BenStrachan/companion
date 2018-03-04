@@ -1,13 +1,29 @@
-  <%= simple_form_for([:app, @advertisement]) do |f| %>
+<%= simple_form_for([:app, @advertisement]) do |f| %>
 
-    <div class="form-inputs">
-      <%= f.input :title %>
-      <%= f.input :description, as: :text, input_html: { rows: 5 } %>
-      <%= f.input :city %>
-    </div>
-    <br>
-    <div class="form-actions">
-      <%= f.button :submit, class: "btn btn-outline-primary"  %>
-    </div>
-    <br>
-  <% end %>
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :description, as: :text, input_html: { rows: 5 } %>
+    <%= f.input :city %>
+  </div>
+  <br>
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-outline-primary"  %>
+  </div>
+<% end %>
+
+<% content_for :page_js do %>
+<script>
+  (function() {
+    var autocomplete;
+
+    function locationSelected() {
+      var place = autocomplete.getPlace();
+    };
+    autocomplete = new google.maps.places.Autocomplete($('#advertisement_city')[0], {
+      types: ['(cities)']
+    });
+
+    autocomplete.addListener('place_changed', locationSelected);
+  })();
+</script>
+<% end %>

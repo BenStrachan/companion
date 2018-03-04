@@ -3,6 +3,24 @@
   <%= f.input :last_name, required: true %>
   <%= f.input :email, required: true, autofocus: true %>
   <%= f.input :status, collection: User::STATUS %>
+  <%= f.input :address %>
   <%= f.input :avatar %>
   <%= f.button :submit, class: "btn btn btn-success" %>
+<% end %>
+
+<% content_for :page_js do %>
+<script>
+  (function() {
+    var autocomplete;
+
+    function locationSelected() {
+      var place = autocomplete.getPlace();
+    };
+    autocomplete = new google.maps.places.Autocomplete($('#user_address')[0], {
+      types: ['(cities)']
+    });
+
+    autocomplete.addListener('place_changed', locationSelected);
+  })();
+</script>
 <% end %>

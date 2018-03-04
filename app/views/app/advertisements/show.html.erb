@@ -21,7 +21,9 @@
         </p>
       </div>
       <div class="box-footer">
-        <a href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
+        <% if can?(:edit, @advertisement) %>
+          <a href="<%= edit_app_advertisement_path(@advertisement) %>">Edit</a>
+        <% end %>
         <% if current_user.id != @advertisement.user_id && !@advertisement.interested?(current_user) %>
         <a href="<%= interest_app_advertisement_path(@advertisement) %>" data-method="POST">
           Register interest
@@ -111,7 +113,7 @@
     <% if @advertisement.private_user_id && (@advertisement.user_id == current_user.id || @advertisement.private_user_id == current_user.id) %>
     <div class="box direct-chat direct-chat-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Private Chatter | </h3> (Visible to #name1 & #name2)
+        <h3 class="box-title">Private Chatter | </h3> (Visible to <%= @advertisement.user&.full_name %> & <%= @advertisement.private_user&.full_name %>)
       </div>
       <div class="box-body">
         <div class="direct-chat-messages">

@@ -31,9 +31,15 @@
 #  avatar_content_type    :string
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
+#  address                :string
+#  latitude               :float
+#  longitude              :float
 #
 
 class User < ApplicationRecord
+  geocoded_by :address
+  after_validation :geocode
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   ROLES = [

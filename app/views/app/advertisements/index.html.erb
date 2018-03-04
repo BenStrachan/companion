@@ -21,7 +21,7 @@
             <td><%= advertisement.city %></td>
             <td>
               <%= link_to 'Show', app_advertisement_path(advertisement) %>
-              <% if current_user.id == advertisement.user_id %>
+              <% if can?(:edit, advertisement) %>
                 | <%= link_to 'Edit', edit_app_advertisement_path(advertisement) %> |
                 <%= link_to 'Destroy', app_advertisement_path(advertisement), method: :delete, data: { confirm: 'Are you sure?' } %></td>
               <% end %>
